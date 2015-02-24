@@ -26,6 +26,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             Console.WriteLine(wayPoint1);
             Console.WriteLine(wayPoint2);
 
+            //Lab2 Aufgabe 1b
+            var bern = new WayPoint("Bern", 46.948342, 7.442935);
+            var tripolis = new WayPoint("Tripolis", 32.808858, 13.098922);
+            Console.WriteLine(bern.Distance(tripolis));
+            Console.WriteLine(tripolis.Distance(bern));
+
             Console.ReadLine();
         }
     }
