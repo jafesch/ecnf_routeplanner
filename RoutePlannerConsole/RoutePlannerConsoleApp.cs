@@ -33,7 +33,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             Console.WriteLine(tripolis.Distance(bern));
 
             //Lab2 Aufgabe 2a
-            new City("Bern", "Schweiz", 75000, 47.479319847061966, 8.212966918945312); 
+            new City("Bern", "Schweiz", 75000, 47.479319847061966, 8.212966918945312);
+
+            //Lab2 Aufgabe 2b
+            Console.WriteLine("New cities: " + new Cities().ReadCities("citiesTestDataLab2.txt"));
 
             Console.ReadLine();
         }
