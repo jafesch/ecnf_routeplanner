@@ -53,7 +53,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="data\" />
+    <ProjectReference Include="..\RoutePlannerLib\RoutePlannerLib.csproj">
+      <Project>{0d46e133-0eef-4eed-933e-7368357c1c43}</Project>
+      <Name>RoutePlannerLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="data\citiesTestDataLab2.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
