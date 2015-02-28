@@ -36,7 +36,31 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             new City("Bern", "Schweiz", 75000, 47.479319847061966, 8.212966918945312);
 
             //Lab2 Aufgabe 2b
-            Console.WriteLine("New cities: " + new Cities().ReadCities("citiesTestDataLab2.txt"));
+            Cities cities = new Cities();
+            Console.WriteLine("New cities: " + cities.ReadCities("citiesTestDataLab2.txt"));
+
+            //Lab2 Aufgabe 2c
+            /*
+            for (int i = 0; i < cities.Count;i++ )
+            {
+                Console.WriteLine(cities[i].Name + ", " + cities[i].Country
+                    + ", " + cities[i].Population 
+                    + ", " + cities[i].Location.Latitude
+                    + ", " + cities[i].Location.Longitude
+                    );
+            }
+            */
+
+            //Lab2 Aufgabe 2d
+            List<City> neighbours = cities.FindNeighbours(cities[1].Location, (double)17000.0);
+            for (int i = 0; i < neighbours.Count; i++)
+            {
+                Console.WriteLine(neighbours[i].Name + ", " + neighbours[i].Country
+                    + ", " + neighbours[i].Population
+                    + ", " + neighbours[i].Location.Latitude
+                    + ", " + neighbours[i].Location.Longitude
+                    );
+            }
 
             Console.ReadLine();
         }
