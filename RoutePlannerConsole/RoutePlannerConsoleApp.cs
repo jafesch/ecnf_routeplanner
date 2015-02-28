@@ -32,6 +32,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             Console.WriteLine(bern.Distance(tripolis));
             Console.WriteLine(tripolis.Distance(bern));
 
+            //Lab2 Aufgabe 2a
+            new City("Bern", "Schweiz", 75000, 47.479319847061966, 8.212966918945312); 
+
             Console.ReadLine();
         }
     }
