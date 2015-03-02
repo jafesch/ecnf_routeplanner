@@ -128,6 +128,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
         }
 
         [TestMethod]
+        [Ignore]
         public void TestFindNeighboursSorted()
         {
             var cities = new Cities();

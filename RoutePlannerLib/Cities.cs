@@ -9,20 +9,21 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
     public class Cities
     {
-        public int Count { get; private set; }
+        public int Count { get { return cities.Count; } }
         List<City> cities = new List<City>();
 
         public int ReadCities(string filename)
         {
-            try
-            {
-                TextReader reader = File.OpenText(filename);
+            int count = 0;
 
+                TextReader reader = File.OpenText(filename);
+                
                 String s;
                 Char[] separator = {'\t'};
                 City city;
                 while ((s = reader.ReadLine()) != null)
                 {
+                    count++;
                     city = new City(s.Split(separator)[0], 
                         s.Split(separator)[1], 
                         int.Parse(s.Split(separator)[2]), 
@@ -30,15 +31,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                         double.Parse(s.Split(separator)[4])
                         );
                     cities.Add(city);
-                    Count++;
                 }
-                return Count;
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-                return -1;
-            }
+                return count;
         }
 
         public City this[int i]{
