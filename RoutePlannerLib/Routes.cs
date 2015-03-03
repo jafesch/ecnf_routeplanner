@@ -16,6 +16,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         List<Link> routes = new List<Link>();
         Cities cities;
 
+        public delegate void RouteRequestHandler(object sender, RouteRequestEventArgs e);
+
+        public event RouteRequestHandler RouteRequestEvent;
+
         public int Count
         {
             get { return routes.Count; }
@@ -61,10 +65,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         }
 
-        public List<Link> FindShortestRouteBetween(string fromCity, string toCity,
-                                        TransportModes mode)
+        public List<Link> FindShortestRouteBetween(string fromCity, string toCity, TransportModes mode)
         {
-			//TODO
+            RouteRequestEvent(this, new RouteRequestEventArgs(fromCity, toCity, mode));
+
+            return new List<Link>();
+            
         }
 
     }
