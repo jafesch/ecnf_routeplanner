@@ -8,11 +8,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
     public class RouteRequestWatcher
     {
-        Dictionary<string, int> counter;
+        Dictionary<string, int> count;
 
         public RouteRequestWatcher()
         {
-            counter = new Dictionary<string, int>();
+            count = new Dictionary<string, int>();
         }
 
         public void LogRouteRequests(object sender, RouteRequestEventArgs e)
@@ -20,17 +20,17 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
             try
             {
-                counter[e.ToCity]++;
+                count[e.ToCity]++;
             }
             catch
             {
-                counter[e.ToCity] = 1;
+                count[e.ToCity] = 1;
             }
 
             Console.WriteLine("Current Request State");
             Console.WriteLine("---------------------");
 
-            foreach (var pair in counter)
+            foreach (var pair in count)
             {
                 Console.WriteLine("ToCity: " + pair.Key + " has been requested " + pair.Value + " times");
             }
@@ -41,7 +41,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public int GetCityRequests(string cityName)
         {
-            return counter[cityName];
+            return count[cityName];
         }
 
 
