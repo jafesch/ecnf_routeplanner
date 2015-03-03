@@ -12,6 +12,15 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public int Count { get { return cities.Count; } }
         List<City> cities = new List<City>();
 
+        //Lab3 1
+        public City FindCity(string cityName)
+        {
+            return Array.Find(cities.ToArray(), delegate(City city)
+                           {
+                               return String.Compare(city.Name, cityName, true) == 0;
+                           });
+        }
+
         public int ReadCities(string filename)
         {
             int count = 0;

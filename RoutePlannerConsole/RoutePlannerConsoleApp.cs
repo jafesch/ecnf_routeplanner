@@ -62,6 +62,14 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
                     );
             }
 
+            //Lab3 Aufgabe 1
+            City city = cities.FindCity("shanghai");
+            Console.WriteLine("Name: " + city.Name + ", " + city.Country
+                    + ", " + city.Population
+                    + ", " + city.Location.Latitude
+                    + ", " + city.Location.Longitude
+                    );
+
             Console.ReadLine();
         }
     }
