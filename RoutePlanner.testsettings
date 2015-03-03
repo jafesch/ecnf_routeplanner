@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<TestSettings name="RoutePlanner.testsettings" id="4ca3deff-131e-4d5c-947b-cb3c15b97596" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+<TestSettings name="RoutePlanner" id="509172e1-4c2f-4621-9c2f-26e103eadbd7" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Description>These are default test settings for a local test run.</Description>
   <Deployment>
     <DeploymentItem filename="RoutePlannerTest\data\" />
