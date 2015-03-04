@@ -67,7 +67,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public List<Link> FindShortestRouteBetween(string fromCity, string toCity, TransportModes mode)
         {
-            RouteRequestEvent(this, new RouteRequestEventArgs(fromCity, toCity, mode));
+            RouteRequestEventArgs routeRequestEvent = new RouteRequestEventArgs(fromCity, toCity, mode);
+            try { RouteRequestEvent(this, routeRequestEvent); }
+            catch { }
+            
             return new List<Link>();
             
         }
