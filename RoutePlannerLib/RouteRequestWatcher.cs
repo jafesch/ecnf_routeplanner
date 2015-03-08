@@ -17,7 +17,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public void LogRouteRequests(object sender, RouteRequestEventArgs e)
         {
-
             try
             {
                 count[e.ToCity]++;
@@ -46,7 +45,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             } catch { 
                 return 0; 
             }
-
         }
 
 

@@ -8,6 +8,8 @@ using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
+    public delegate void RouteRequestHandler(object sender, RouteRequestEventArgs e);
+
     /// <summary>
     /// Manages a routes from a city to another city.
     /// </summary>
@@ -17,8 +19,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         Cities cities;
 
         public event RouteRequestHandler RouteRequestEvent;
-
-        public delegate void RouteRequestHandler(object sender, RouteRequestEventArgs e);
 
         public int Count
         {
@@ -67,12 +67,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public List<Link> FindShortestRouteBetween(string fromCity, string toCity, TransportModes mode)
         {
-            RouteRequestEventArgs routeRequestEvent = new RouteRequestEventArgs(fromCity, toCity, mode);
-            try { RouteRequestEvent(this, routeRequestEvent); }
-            catch { }
-            
+            RouteRequestEventArgs routeRequestEventArgs = new RouteRequestEventArgs(fromCity, toCity, mode);
+            if(RouteRequestEvent != null) RouteRequestEvent(this, routeRequestEventArgs);
             return new List<Link>();
-            
         }
 
     }

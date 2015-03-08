@@ -70,7 +70,23 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
                     + ", " + city.Location.Longitude
                     );
 
+
+            //Lab3 Aufgabe 2c
+            var reqWatch = new RouteRequestWatcher();
+
+            var routeCities = new Cities();
+            cities.ReadCities("citiesTestDataLab2.txt");
+
+            var routes = new Routes(routeCities);
+
+            routes.RouteRequestEvent += reqWatch.LogRouteRequests;
+
+            routes.FindShortestRouteBetween("Bern", "Zürich", TransportModes.Rail);
+            routes.FindShortestRouteBetween("Bern", "Zürich", TransportModes.Rail);
+            routes.FindShortestRouteBetween("Basel", "Bern", TransportModes.Rail);
+
             Console.ReadLine();
+
         }
     }
 }

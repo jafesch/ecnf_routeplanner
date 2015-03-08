@@ -15,36 +15,39 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         //Lab3 1
         public City FindCity(string cityName)
         {
-            return Array.Find(cities.ToArray(), delegate(City city)
-                           {
-                               return String.Compare(city.Name, cityName, true) == 0;
-                           });
+            Predicate<City> predicateDelegate = delegate(City city)
+            {
+                return String.Compare(city.Name, cityName, true) == 0;
+            };
+
+            return cities.Find(predicateDelegate);
         }
 
         public int ReadCities(string filename)
         {
             int count = 0;
 
-                TextReader reader = File.OpenText(filename);
-                
-                String s;
-                Char[] separator = {'\t'};
-                City city;
-                while ((s = reader.ReadLine()) != null)
-                {
-                    count++;
-                    city = new City(s.Split(separator)[0], 
-                        s.Split(separator)[1], 
-                        int.Parse(s.Split(separator)[2]), 
-                        double.Parse(s.Split(separator)[3]), 
-                        double.Parse(s.Split(separator)[4])
-                        );
-                    cities.Add(city);
-                }
-                return count;
+            TextReader reader = File.OpenText(filename);
+
+            String s;
+            Char[] separator = { '\t' };
+            City city;
+            while ((s = reader.ReadLine()) != null)
+            {
+                count++;
+                city = new City(s.Split(separator)[0],
+                    s.Split(separator)[1],
+                    int.Parse(s.Split(separator)[2]),
+                    double.Parse(s.Split(separator)[3]),
+                    double.Parse(s.Split(separator)[4])
+                    );
+                cities.Add(city);
+            }
+            return count;
         }
 
-        public City this[int i]{
+        public City this[int i]
+        {
             get
             {
                 if (i < Count) { return cities[i]; } else { return null; }
