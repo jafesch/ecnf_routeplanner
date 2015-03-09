@@ -21,6 +21,16 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             Longitude = _longitude;
         }
 
+        public static WayPoint operator +(WayPoint lhs, WayPoint rhs)
+        {
+            return new WayPoint(lhs.Name, lhs.Latitude + rhs.Latitude, lhs.Longitude + rhs.Latitude);
+        }
+
+        public static WayPoint operator -(WayPoint lhs, WayPoint rhs)
+        {
+            return new WayPoint(lhs.Name, lhs.Latitude - rhs.Latitude, lhs.Longitude - rhs.Latitude);
+        }
+
         public override string ToString()
         {
             if(Name == null || Name == "")
