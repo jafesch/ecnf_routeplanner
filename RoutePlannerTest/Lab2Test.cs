@@ -1,8 +1,6 @@
 ﻿using System.Linq;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Diagnostics;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
 {
@@ -114,7 +112,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
         public void TestFindNeighbours()
         {
             var cities = new Cities();
-            Console.WriteLine("asdfasdfadsf" + CitiesTestFile);
             cities.ReadCities(CitiesTestFile);
 
             var loc = cities[0].Location;
