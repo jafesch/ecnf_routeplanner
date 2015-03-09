@@ -20,5 +20,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             Population = _population;
             Location = new WayPoint(_name, _latitude, _longitude);
         }
+
+        public override bool Equals(object obj)
+        {
+            var city = obj as City;
+            if (city == null) return false;
+            return this.Name == city.Name && this.Country == city.Country;
+        }
     }
 }
