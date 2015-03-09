@@ -12,14 +12,14 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
         public static IEnumerable<string[]> GetSplittedLines(this TextReader textReader, char separator)
         {
             var s = "";
-            var sArray = new String[5];
+            var sArray = new String[0];
             while ((s = textReader.ReadLine()) != null)
             {
-                sArray[0] = s.Split(separator)[0];
-                sArray[1] = s.Split(separator)[1];
-                sArray[2] = s.Split(separator)[2];
-                sArray[3] = s.Split(separator)[3];
-                sArray[4] = s.Split(separator)[4];
+                sArray = new String[s.Split(separator).Length];
+                for (int i = 0; i < s.Split(separator).Length; i++)
+                {
+                    sArray[i] = s.Split(separator)[i];
+                }
                 yield return sArray;
             }
         }

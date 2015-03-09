@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib;
+using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
@@ -44,6 +45,26 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             using (TextReader reader = new StreamReader(filename))
             {
+                IEnumerable<string[]> linkAsString = reader.GetSplittedLines('\t');
+                foreach (string[] ls in linkAsString)
+                {
+                    City city1 = cities.FindCity(ls[0]);
+                    City city2 = cities.FindCity(ls[1]);
+
+                    // only add links, where the cities are found 
+                    if ((city1 != null) && (city2 != null))
+                    {
+                        routes.Add(new Link(city1, city2, city1.Location.Distance(city2.Location),
+                                                   TransportModes.Rail));
+                    }
+                }
+
+                return Count;
+
+            }
+            /*
+            using (TextReader reader = new StreamReader(filename))
+            {
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
@@ -62,6 +83,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             }
 
             return Count;
+             */
 
         }
 
