@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
+using System.Globalization;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
@@ -36,8 +37,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                         cs[0].Trim(),
                         cs[1].Trim(),
                         int.Parse(cs[2]),
-                        double.Parse(cs[3]),
-                        double.Parse(cs[4])
+                        double.Parse(cs[3], CultureInfo.InvariantCulture),
+                        double.Parse(cs[4], CultureInfo.InvariantCulture)
                         );
                     cities.Add(city);
                     count++;

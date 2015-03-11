@@ -25,7 +25,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             var city = obj as City;
             if (city == null) return false;
-            return this.Name == city.Name && this.Country == city.Country;
+            return Name == city.Name && Country == city.Country;
         }
     }
 }

@@ -33,11 +33,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public override string ToString()
         {
-            if(Name == null || Name == "")
+            if (Name == null || Name == "")
             {
-                return String.Format("WayPoint: {0}/{1}", Math.Round(Latitude,2), Math.Round(Longitude,2));
-            }else{
-                return String.Format("WayPoint: {0} {1}/{2}", Name, Math.Round(Latitude,2), Math.Round(Longitude,2));
+                return String.Format("WayPoint: {0}/{1}", Latitude.ToString("0.00"), Longitude.ToString("0.00"));
+            }
+            else
+            {
+                return String.Format("WayPoint: {0} {1}/{2}", Name, Latitude.ToString("0.00"), Longitude.ToString("0.00"));
             }
         }
 
