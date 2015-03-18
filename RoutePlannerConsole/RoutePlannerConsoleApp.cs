@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib;
+using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
+using System.IO;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
 {
@@ -85,8 +87,19 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             routes.FindShortestRouteBetween("Bern", "Zürich", TransportModes.Rail);
             routes.FindShortestRouteBetween("Basel", "Bern", TransportModes.Rail);
 
-            Console.ReadLine();
 
+            const string cityString1 = "Instance of Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.City\r\nName=\"Aarau\"\r\nCountry=\"Switzerland\"\r\nPopulation=10\r\nLocation is a nested object...\r\nInstance of Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.WayPoint\r\nName=\"Aarau\"\r\nLongitude=2.2\r\nLatitude=1.1\r\nEnd of instance\r\nEnd of instance\r\n";
+            const string cityString2 = "Instance of Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.City\r\nName=\"Bern\"\r\nCountry=\"Switzerland\"\r\nPopulation=10\r\nLocation is a nested object...\r\nInstance of Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.WayPoint\r\nName=\"Bern\"\r\nLongitude=2.2\r\nLatitude=1.1\r\nEnd of instance\r\nEnd of instance\r\n";
+            const string cityString = cityString1 + cityString2;
+            var expectedCity1 = new City("Aarau", "Switzerland", 10, 1.1, 2.2);
+            var expectedCity2 = new City("Bern", "Switzerland", 10, 1.1, 2.2);
+            var stream = new StringReader(cityString);
+            var reader = new SimpleObjectReader(stream);
+            var city1 = reader.Next() as City;
+
+            var city2 = reader.Next() as City;
+
+            Console.ReadLine();
         }
     }
 }
