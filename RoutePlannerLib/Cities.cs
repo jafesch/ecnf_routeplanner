@@ -17,35 +17,19 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         //Lab3 1
         public City FindCity(string cityName)
         {
-            Predicate<City> predicateDelegate = delegate(City city)
-            {
-                return String.Compare(city.Name, cityName, true) == 0;
-            };
-
-            return cities.Find(predicateDelegate);
+            return cities.Find(c => String.Compare(c.Name, cityName, true) == 0);
         }
 
         public int ReadCities(string filename)
         {
-            int count = 0;
             using (TextReader reader = new StreamReader(filename))
             {
                 IEnumerable<string[]> citiesAsStrings = reader.GetSplittedLines('\t');
-                foreach (string[] cs in citiesAsStrings)
-                {
-                    City city = new City(
-                        cs[0].Trim(),
-                        cs[1].Trim(),
-                        int.Parse(cs[2]),
-                        double.Parse(cs[3], CultureInfo.InvariantCulture),
-                        double.Parse(cs[4], CultureInfo.InvariantCulture)
-                        );
-                    cities.Add(city);
-                    count++;
-                }
-
+                IEnumerable<City> c = citiesAsStrings.Select(city => new City(city[0].ToString(), city[1].ToString(), int.Parse(city[2]), double.Parse(city[3]) ,double.Parse(city[4]))).ToList();
+                cities.AddRange(c);
+                return c.Count();
             }
-            return count;
+            
         }
 
         public City this[int i]
@@ -58,16 +42,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public List<City> FindNeighbours(WayPoint location, double distance)
         {
-            List<City> citiesTemp = new List<City>();
-            for (int i = 0; i < cities.Count; i++)
-            {
-                if (location.Distance(cities[i].Location) <= distance)
-                {
-                    citiesTemp.Add(cities[i]);
-                }
-            }
+            IEnumerable<City> citiesTemp = cities.Where(c => location.Distance(c.Location) <= distance).ToList(); ;
 
-            return citiesTemp;
+            return (List<City>)citiesTemp;
         }
 
         #region Lab04: FindShortestPath helper function

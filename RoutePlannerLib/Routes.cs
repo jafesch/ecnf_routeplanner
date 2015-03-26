@@ -55,36 +55,19 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                     if ((city1 != null) && (city2 != null))
                     {
                         routes.Add(new Link(city1, city2, city1.Location.Distance(city2.Location),
-                                                   TransportModes.Rail));
+                            TransportModes.Rail));
                     }
                 }
-
                 return Count;
-
             }
-            /*
-            using (TextReader reader = new StreamReader(filename))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    var linkAsString = line.Split('\t');
+        }
 
-                    City city1 = cities.FindCity(linkAsString[0]);
-                    City city2 = cities.FindCity(linkAsString[1]);
-
-                    // only add links, where the cities are found 
-                    if ((city1 != null) && (city2 != null))
-                    {
-                        routes.Add(new Link(city1, city2, city1.Location.Distance(city2.Location),
-                                                   TransportModes.Rail));
-                    }
-                }
-            }
-
-            return Count;
-             */
-
+        public City[] FindCities(TransportModes transportMode)
+        {
+            return routes.Where(r1 => r1.TransportMode == transportMode)
+                         .SelectMany(r2 => new[] { r2.FromCity, r2.ToCity })
+                         .Distinct()
+                         .ToArray();
         }
 
         #region Lab04: Dijkstra implementation
