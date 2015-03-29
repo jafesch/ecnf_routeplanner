@@ -42,9 +42,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public List<City> FindNeighbours(WayPoint location, double distance)
         {
-            IEnumerable<City> citiesTemp = cities.Where(c => location.Distance(c.Location) <= distance).ToList(); ;
-
-            return (List<City>)citiesTemp;
+            return cities.Where(c => location.Distance(c.Location) <= distance).ToList();
         }
 
         #region Lab04: FindShortestPath helper function

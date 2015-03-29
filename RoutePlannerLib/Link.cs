@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
@@ -67,21 +68,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         /// <returns>true if both link-cities are in the list</returns>
         internal bool IsIncludedIn(List<City> cities)
         {
-            var foundFrom = false;
-            var foundTo = false;
-            foreach (var c in cities)
-            {
-                if (!foundFrom && c.Name == FromCity.Name)
-                    foundFrom = true;
-
-                if (!foundTo && c.Name == ToCity.Name)
-                    foundTo = true;
-
-                if (foundTo && foundFrom)
-                    return true;
-            }
-
-            return false;
+            var foundFrom = cities.Any(c => c.Name == FromCity.Name);
+            var foundTo = cities.Any(c => c.Name == ToCity.Name);
+            return foundFrom && foundTo;
         }
 
     }
