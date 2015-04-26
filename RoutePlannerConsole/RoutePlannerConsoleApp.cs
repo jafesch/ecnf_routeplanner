@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
 using System.IO;
+using System.Diagnostics;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
 {
     class RoutePlannerConsoleApp
     {
+        private static TraceSource traceSource = new TraceSource("Cities");
+
         static void Main(string[] args)
         {
             //Lab1 Aufgabe 1
@@ -98,6 +101,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             var city1 = reader.Next() as City;
 
             var city2 = reader.Next() as City;
+
+            routes.ReadRoutes("linksTestDataLab3.txt");
+            routes.ReadRoutes("linksTestDa.txt");
 
             Console.ReadLine();
         }

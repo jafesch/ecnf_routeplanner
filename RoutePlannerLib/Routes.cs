@@ -6,6 +6,7 @@ using System.Threading;
 using System.Linq;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
+using System.Diagnostics;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
@@ -18,6 +19,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     {
         List<Link> routes = new List<Link>();
         Cities cities;
+        private static readonly TraceSource traceSource = new TraceSource("Routes");
+        private static readonly TraceSource traceSourceErrors = new TraceSource("RoutesErrors");
 
         public event RouteRequestHandler RouteRequestEvent;
 
@@ -43,23 +46,36 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         /// <returns>number of read route</returns>
         public int ReadRoutes(string filename)
         {
-            using (TextReader reader = new StreamReader(filename))
-            {
-                IEnumerable<string[]> linkAsString = reader.GetSplittedLines('\t');
-                foreach (string[] ls in linkAsString)
+            try {
+                using (TextReader reader = new StreamReader(filename))
                 {
-                    City city1 = cities.FindCity(ls[0]);
-                    City city2 = cities.FindCity(ls[1]);
-
-                    // only add links, where the cities are found 
-                    if ((city1 != null) && (city2 != null))
+                    traceSource.TraceInformation("Read Routes started");
+                    traceSource.Flush();
+                    IEnumerable<string[]> linkAsString = reader.GetSplittedLines('\t');
+                    foreach (string[] ls in linkAsString)
                     {
-                        routes.Add(new Link(city1, city2, city1.Location.Distance(city2.Location),
-                            TransportModes.Rail));
+                        City city1 = cities.FindCity(ls[0]);
+                        City city2 = cities.FindCity(ls[1]);
+
+                        // only add links, where the cities are found 
+                        if ((city1 != null) && (city2 != null))
+                        {
+                            routes.Add(new Link(city1, city2, city1.Location.Distance(city2.Location),
+                                TransportModes.Rail));
+                        }
                     }
+                    traceSource.TraceInformation("Read Routes ended");
+                    traceSource.Flush();
+                    return Count;
                 }
-                return Count;
+
             }
+            catch (FileNotFoundException e)
+            {
+                traceSourceErrors.TraceData(TraceEventType.Critical, 1, e.StackTrace);
+                traceSource.Flush();
+            }
+            return -1;
         }
 
         public City[] FindCities(TransportModes transportMode)

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
@@ -13,6 +14,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     {
         public int Count { get { return cities.Count; } }
         List<City> cities = new List<City>();
+        private static readonly TraceSource traceSource = new TraceSource("Cities");
 
         //Lab3 1
         public City FindCity(string cityName)
@@ -22,14 +24,20 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public int ReadCities(string filename)
         {
+            traceSource.TraceInformation("Read Cities started");
+            traceSource.Flush();
+
             using (TextReader reader = new StreamReader(filename))
             {
                 IEnumerable<string[]> citiesAsStrings = reader.GetSplittedLines('\t');
                 IEnumerable<City> c = citiesAsStrings.Select(city => new City(city[0].ToString(), city[1].ToString(), int.Parse(city[2]), double.Parse(city[3]) ,double.Parse(city[4]))).ToList();
                 cities.AddRange(c);
+                traceSource.TraceInformation("Read Cities ended");
+                traceSource.Flush();
+                traceSource.Close();
                 return c.Count();
             }
-            
+
         }
 
         public City this[int i]
