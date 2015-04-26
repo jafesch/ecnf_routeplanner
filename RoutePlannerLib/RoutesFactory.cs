@@ -17,7 +17,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         static public IRoutes Create(Cities cities, string algorithmClassName)
         {
             IRoutes routeFactory = null;
-            Assembly a = Assembly.LoadFrom("RoutePlannerLib.dll");
+            Assembly a = Assembly.GetExecutingAssembly();
             Type t = a.GetType(algorithmClassName);
 
             if (t == null)

@@ -59,7 +59,7 @@
     <Compile Include="RoutesFactory.cs" />
     <Compile Include="SimpleObjectReader.cs" />
     <Compile Include="SimpleObjectWriter.cs" />
-    <Compile Include="TextReaderExtension.cs" />
+    <Compile Include="Util\TextReaderExtension.cs" />
     <Compile Include="WayPoint.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>

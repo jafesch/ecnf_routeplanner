@@ -19,7 +19,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         //Lab3 1
         public City FindCity(string cityName)
         {
-            return cities.Find(c => String.Compare(c.Name, cityName, true) == 0);
+            return cities.SingleOrDefault(c => String.Compare(c.Name, cityName, true) == 0);
         }
 
         public int ReadCities(string filename)
@@ -30,7 +30,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             using (TextReader reader = new StreamReader(filename))
             {
                 IEnumerable<string[]> citiesAsStrings = reader.GetSplittedLines('\t');
-                IEnumerable<City> c = citiesAsStrings.Select(city => new City(city[0].ToString(), city[1].ToString(), int.Parse(city[2]), double.Parse(city[3]) ,double.Parse(city[4]))).ToList();
+                IEnumerable<City> c = citiesAsStrings.Select(city => new City(city[0].ToString(), city[1].ToString(), int.Parse(city[2]), double.Parse(city[3], CultureInfo.InvariantCulture) ,double.Parse(city[4], CultureInfo.InvariantCulture))).ToArray();
                 cities.AddRange(c);
                 traceSource.TraceInformation("Read Cities ended");
                 traceSource.Flush();

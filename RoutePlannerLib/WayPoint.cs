@@ -37,11 +37,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             if (Name == null || Name == "")
             {
-                return String.Format("WayPoint: {0}/{1}", Latitude.ToString("0.00"), Longitude.ToString("0.00"));
+                return String.Format("WayPoint: {0:N2}/{1:N2}", Latitude, Longitude);
             }
             else
             {
-                return String.Format("WayPoint: {0} {1}/{2}", Name, Latitude.ToString("0.00"), Longitude.ToString("0.00"));
+                return String.Format("WayPoint: {0} {1:N2}/{2:N2}", Name, Latitude, Longitude);
             }
         }
 

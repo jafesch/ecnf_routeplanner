@@ -23,16 +23,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             var properties = type.GetProperties();
             foreach (var property in properties)
             {
-                if (property.PropertyType.FullName.StartsWith("Fhnw.Ecnf.RoutePlanner."))
+                if (property.GetValue(obj) as string == null && property.GetValue(obj) as ValueType == null)
                 {
                     stream.WriteLine("{0} is a nested object...", property.Name);
                     Next(property.GetValue(obj));
                 }
                 else
                 {
-                    //ignore Index Property (from City class)
-                    if (property.Name == "Index") continue;
-
                     if (property.GetValue(obj) is double)
                         stream.WriteLine("{0}={1}", property.Name, ((double)property.GetValue(obj)).ToString(CultureInfo.InvariantCulture));
                     else if (property.GetValue(obj) is string)
