@@ -20,7 +20,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Dynamic
         {
             var city = _cities.FindCity(binder.Name);
             if (city == null)
-                result = "The city \"" + binder.Name + "\" does not exist!";
+                result = string.Format("The city \"{0}\" does not exist!", binder.Name);
             else
                 result = city;
             return true;
