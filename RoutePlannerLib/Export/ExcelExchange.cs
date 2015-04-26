@@ -39,6 +39,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
             }
 
             workbook.SaveAs(fileName);
+            workbook.Close();
         }
     }
 }
