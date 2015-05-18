@@ -38,7 +38,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
                 row++;
             }
 
-            workbook.SaveAs(fileName);
+            workbook.SaveAs(fileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, true, false, XlSaveAsAccessMode.xlNoChange, XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
             workbook.Close();
         }
     }
