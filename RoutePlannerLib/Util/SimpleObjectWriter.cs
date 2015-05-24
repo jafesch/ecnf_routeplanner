@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
 {
@@ -23,19 +24,22 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
             var properties = type.GetProperties();
             foreach (var property in properties)
             {
-                if (property.GetValue(obj) as string == null && property.GetValue(obj) as ValueType == null)
+                if (!property.GetCustomAttributes(false).Any(attr => attr is XmlIgnoreAttribute))
                 {
-                    stream.WriteLine("{0} is a nested object...", property.Name);
-                    Next(property.GetValue(obj));
-                }
-                else
-                {
-                    if (property.GetValue(obj) is double)
-                        stream.WriteLine("{0}={1}", property.Name, ((double)property.GetValue(obj)).ToString(CultureInfo.InvariantCulture));
-                    else if (property.GetValue(obj) is string)
-                        stream.WriteLine("{0}=\"{1}\"", property.Name, property.GetValue(obj).ToString());
+                    if (property.GetValue(obj) as string == null && property.GetValue(obj) as ValueType == null)
+                    {
+                        stream.WriteLine("{0} is a nested object...", property.Name);
+                        Next(property.GetValue(obj));
+                    }
                     else
-                        stream.WriteLine("{0}={1}", property.Name, property.GetValue(obj).ToString());
+                    {
+                        if (property.GetValue(obj) is double)
+                            stream.WriteLine("{0}={1}", property.Name, ((double)property.GetValue(obj)).ToString(CultureInfo.InvariantCulture));
+                        else if (property.GetValue(obj) is string)
+                            stream.WriteLine("{0}=\"{1}\"", property.Name, property.GetValue(obj).ToString());
+                        else
+                            stream.WriteLine("{0}={1}", property.Name, property.GetValue(obj).ToString());
+                    }
                 }
             }
             stream.WriteLine("End of instance");

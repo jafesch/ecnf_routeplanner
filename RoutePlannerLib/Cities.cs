@@ -63,6 +63,14 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return cities.Where(c => location.Distance(c.Location) <= distance).ToList();
         }
 
+        private List<City> InitIndexForAlgorithm(List<City> foundCities)
+        {
+            // set index for FloydWarshall
+            for (var index = 0; index < foundCities.Count; index++)
+                foundCities[index].Index = index;
+            return foundCities;
+        }
+
         #region Lab04: FindShortestPath helper function
         /// <summary>
         /// Find all cities between 2 cities 
@@ -88,6 +96,14 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                         && c.Location.Longitude > minLon && c.Location.Longitude < maxLon));
 
             foundCities.Add(to);
+
+            //index found cities
+            var index = 0;
+            foreach (var city in foundCities)
+            {
+                city.Index = index++;
+            }
+
             return foundCities;
         }
         #endregion

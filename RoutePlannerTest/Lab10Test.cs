@@ -120,7 +120,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             long dijkstraTime = this.FindRoutes(routes);
 
             routes = new RoutesFloydWarshall(cities);
-            routes.ExecuteParallel = false;
+            routes.ExecuteParallel = true;
             long floydWarshallTime = this.FindRoutes(routes);
 
             // the sequential version should be slower

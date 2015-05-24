@@ -82,7 +82,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             var routeCities = new Cities();
             cities.ReadCities("citiesTestDataLab2.txt");
 
-            var routes = new Routes(routeCities);
+            var routes = new RoutesDijkstra(routeCities);
 
             routes.RouteRequestEvent += reqWatch.LogRouteRequests;
 
