@@ -12,6 +12,44 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public RoutesDijkstra(Cities cities) : base(cities) { }
 
+        public override Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity, TransportModes mode)
+        {
+            return FindShortestRouteBetweenAsync(fromCity, toCity, mode, null);
+        }
+
+        public override async Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity, TransportModes mode, IProgress<string> progress)
+        {
+            if (progress != null) { progress.Report("Start done"); }
+            RouteRequestEventArgs routeRequestEventArgs = new RouteRequestEventArgs(fromCity, toCity, mode);
+            if (RouteRequestEvent != null) RouteRequestEvent(this, routeRequestEventArgs);
+            if (progress != null) { progress.Report("Route request done"); }
+
+            var citiesBetween = FindCitiesBetween(fromCity, toCity);
+            if (citiesBetween == null || citiesBetween.Count < 1 || routes == null || routes.Count < 1)
+                return null;
+            if (progress != null) { progress.Report("Find cities done"); }
+
+            var source = citiesBetween[0];
+            var target = citiesBetween[citiesBetween.Count - 1];
+
+            Dictionary<City, double> dist;
+            Dictionary<City, City> previous;
+            var q = FillListOfNodes(citiesBetween, out dist, out previous);
+            dist[source] = 0.0;
+
+            // the actual algorithm
+            previous = SearchShortestPath(mode, q, dist, previous);
+            if (progress != null) { progress.Report("Algorithm done"); }
+
+            // create a list with all cities on the route
+            var citiesOnRoute = GetCitiesOnRoute(source, target, previous);
+
+            if (progress != null) { progress.Report("Create list done"); }
+
+            // prepare final list if links
+            return FindPath(citiesOnRoute, mode);
+        }
+
         public override List<Link> FindShortestRouteBetween(string fromCity, string toCity, TransportModes mode)
         {
             RouteRequestEventArgs routeRequestEventArgs = new RouteRequestEventArgs(fromCity, toCity, mode);

@@ -7,6 +7,7 @@ using System.Linq;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
@@ -91,5 +92,15 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         }
 
         public abstract List<Link> FindShortestRouteBetween(string fromCity, string toCity, TransportModes mode);
+
+        public virtual Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity, TransportModes mode)
+        {
+            return null;
+        }
+
+        public virtual Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity, TransportModes mode, IProgress<string> progress)
+        {
+            return null;
+        }
     }
 }
