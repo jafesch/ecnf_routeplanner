@@ -24,7 +24,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             if (RouteRequestEvent != null) RouteRequestEvent(this, routeRequestEventArgs);
             if (progress != null) { progress.Report("Route request done"); }
 
-            var citiesBetween = FindCitiesBetween(fromCity, toCity);
+            var citiesBetween =  FindCitiesBetween(fromCity, toCity);
             if (citiesBetween == null || citiesBetween.Count < 1 || routes == null || routes.Count < 1)
                 return null;
             if (progress != null) { progress.Report("Find cities done"); }
